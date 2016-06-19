@@ -44,7 +44,7 @@ navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 var constraints = {
-  audio: true,
+  audio: false,
   video: true
 };
 
@@ -79,7 +79,7 @@ function errorCallback(error) {
 
 function handleSourceOpen(event) {
   console.log('MediaSource opened');
-  sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
+  sourceBuffer = mediaSource.addSourceBuffer('audio/mp3');
   console.log('Source buffer: ', sourceBuffer);
 }
 
@@ -106,19 +106,19 @@ function toggleRecording() {
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
-  var options = {mimeType: 'video/webm', bitsPerSecond: 100000};
+  var options = {mimeType: 'audio/mp3'};
   recordedBlobs = [];
   try {
     mediaRecorder = new MediaRecorder(window.stream, options);
   } catch (e0) {
     console.log('Unable to create MediaRecorder with options Object: ', e0);
     try {
-      options = {mimeType: 'video/webm,codecs=vp9', bitsPerSecond: 100000};
+      options = {mimeType: 'audio/mp3'};
       mediaRecorder = new MediaRecorder(window.stream, options);
     } catch (e1) {
       console.log('Unable to create MediaRecorder with options Object: ', e1);
       try {
-        options = 'video/vp8'; // Chrome 47
+        options = 'audio/mp3'; // Chrome 47
         mediaRecorder = new MediaRecorder(window.stream, options);
       } catch (e2) {
         alert('MediaRecorder is not supported by this browser.\n\n' +
@@ -145,17 +145,17 @@ function stopRecording() {
 }
 
 function play() {
-  var superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
+  var superBuffer = new Blob(recordedBlobs, {type: 'audio/mp3'});
   recordedVideo.src = window.URL.createObjectURL(superBuffer);
 }
 
 function download() {
-  var blob = new Blob(recordedBlobs, {type: 'video/webm'});
+  var blob = new Blob(recordedBlobs, {type: 'audio/mp3'});
   var url = window.URL.createObjectURL(blob);
   var a = document.createElement('a');
   a.style.display = 'none';
   a.href = url;
-  a.download = 'test.webm';
+  a.download = 'test.mp3';
   document.body.appendChild(a);
   a.click();
   setTimeout(function() {
