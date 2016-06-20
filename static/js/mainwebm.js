@@ -103,7 +103,7 @@ function toggleRecording() {
     downloadButton.disabled = false;
   }
 }
-
+//TODO: webm works with chrome, ogg works with firefox. Nothing works with both, WTF???
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
   var options = {mimeType: 'audio/webm', bitsPerSecond: 100000};
