@@ -79,7 +79,7 @@ function errorCallback(error) {
 
 function handleSourceOpen(event) {
   console.log('MediaSource opened');
-  sourceBuffer = mediaSource.addSourceBuffer('audio/wav');
+  sourceBuffer = mediaSource.addSourceBuffer('audio/vnd.wave');
   console.log('Source buffer: ', sourceBuffer);
 }
 
@@ -106,19 +106,19 @@ function toggleRecording() {
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
-  var options = {mimeType: 'audio/wav'};
+  var options = {mimeType: 'audio/vnd.wave'};
   recordedBlobs = [];
   try {
     mediaRecorder = new MediaRecorder(window.stream, options);
   } catch (e0) {
     console.log('Unable to create MediaRecorder with options Object: ', e0);
     try {
-      options = {mimeType: 'audio/wav'};
+      options = {mimeType: 'audio/vnd.wave'};
       mediaRecorder = new MediaRecorder(window.stream, options);
     } catch (e1) {
       console.log('Unable to create MediaRecorder with options Object: ', e1);
       try {
-        options = 'audio/wav'; // Chrome 47
+        options = 'audio/vnd.wave'; // Chrome 47
         mediaRecorder = new MediaRecorder(window.stream, options);
       } catch (e2) {
         alert('MediaRecorder is not supported by this browser.\n\n' +
@@ -145,17 +145,17 @@ function stopRecording() {
 }
 
 function play() {
-  var superBuffer = new Blob(recordedBlobs, {type: 'audio/wav'});
+  var superBuffer = new Blob(recordedBlobs, {type: 'audio/vnd.wave'});
   recordedVideo.src = window.URL.createObjectURL(superBuffer);
 }
 
 function download() {
-  var blob = new Blob(recordedBlobs, {type: 'audio/wav'});
+  var blob = new Blob(recordedBlobs, {type: 'audio/vnd.wave'});
   var url = window.URL.createObjectURL(blob);
   var a = document.createElement('a');
   a.style.display = 'none';
   a.href = url;
-  a.download = 'test.wav';
+  a.download = 'test.vnd.wave';
   document.body.appendChild(a);
   a.click();
   setTimeout(function() {
