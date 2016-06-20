@@ -79,7 +79,7 @@ function errorCallback(error) {
 
 function handleSourceOpen(event) {
   console.log('MediaSource opened');
-  sourceBuffer = mediaSource.addSourceBuffer('audio/mp3');
+  sourceBuffer = mediaSource.addSourceBuffer('audio/wav');
   console.log('Source buffer: ', sourceBuffer);
 }
 
@@ -106,19 +106,19 @@ function toggleRecording() {
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
-  var options = {mimeType: 'audio/mp3'};
+  var options = {mimeType: 'audio/wav'};
   recordedBlobs = [];
   try {
     mediaRecorder = new MediaRecorder(window.stream, options);
   } catch (e0) {
     console.log('Unable to create MediaRecorder with options Object: ', e0);
     try {
-      options = {mimeType: 'audio/mp3'};
+      options = {mimeType: 'audio/wav'};
       mediaRecorder = new MediaRecorder(window.stream, options);
     } catch (e1) {
       console.log('Unable to create MediaRecorder with options Object: ', e1);
       try {
-        options = 'audio/mp3'; // Chrome 47
+        options = 'audio/wav'; // Chrome 47
         mediaRecorder = new MediaRecorder(window.stream, options);
       } catch (e2) {
         alert('MediaRecorder is not supported by this browser.\n\n' +
@@ -145,17 +145,17 @@ function stopRecording() {
 }
 
 function play() {
-  var superBuffer = new Blob(recordedBlobs, {type: 'audio/mp3'});
+  var superBuffer = new Blob(recordedBlobs, {type: 'audio/wav'});
   recordedVideo.src = window.URL.createObjectURL(superBuffer);
 }
 
 function download() {
-  var blob = new Blob(recordedBlobs, {type: 'audio/mp3'});
+  var blob = new Blob(recordedBlobs, {type: 'audio/wav'});
   var url = window.URL.createObjectURL(blob);
   var a = document.createElement('a');
   a.style.display = 'none';
   a.href = url;
-  a.download = 'test.mp3';
+  a.download = 'test.wav';
   document.body.appendChild(a);
   a.click();
   setTimeout(function() {
