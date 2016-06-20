@@ -106,7 +106,7 @@ function toggleRecording() {
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
-  var options = {mimeType: 'audio/vnd.wave'};
+  var options = {mimeType: 'audio/vnd.wave', bitsPerSecond: 100000};
   recordedBlobs = [];
   try {
     mediaRecorder = new MediaRecorder(window.stream, options);
