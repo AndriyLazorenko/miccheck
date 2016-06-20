@@ -44,8 +44,8 @@ navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 var constraints = {
-  audio: false,
-  video: true
+  audio: true,
+  video: false
 };
 
 navigator.getUserMedia(constraints, successCallback, errorCallback);
