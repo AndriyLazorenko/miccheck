@@ -79,7 +79,7 @@ function errorCallback(error) {
 
 function handleSourceOpen(event) {
   console.log('MediaSource opened');
-  sourceBuffer = mediaSource.addSourceBuffer('audio/ogg');
+  sourceBuffer = mediaSource.addSourceBuffer('audio/webm');
   console.log('Source buffer: ', sourceBuffer);
 }
 
@@ -106,19 +106,19 @@ function toggleRecording() {
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
-  var options = {mimeType: 'audio/ogg', bitsPerSecond: 100000};
+  var options = {mimeType: 'audio/webm', bitsPerSecond: 100000};
   recordedBlobs = [];
   try {
     mediaRecorder = new MediaRecorder(window.stream, options);
   } catch (e0) {
     console.log('Unable to create MediaRecorder with options Object: ', e0);
     try {
-      options = {mimeType: 'audio/ogg'};
+      options = {mimeType: 'audio/webm'};
       mediaRecorder = new MediaRecorder(window.stream, options);
     } catch (e1) {
       console.log('Unable to create MediaRecorder with options Object: ', e1);
       try {
-        options = 'audio/ogg'; // Chrome 47
+        options = 'audio/webm'; // Chrome 47
         mediaRecorder = new MediaRecorder(window.stream, options);
       } catch (e2) {
         alert('MediaRecorder is not supported by this browser.\n\n' +
@@ -145,17 +145,17 @@ function stopRecording() {
 }
 
 function play() {
-  var superBuffer = new Blob(recordedBlobs, {type: 'audio/ogg'});
+  var superBuffer = new Blob(recordedBlobs, {type: 'audio/webm'});
   recordedVideo.src = window.URL.createObjectURL(superBuffer);
 }
 
 function download() {
-  var blob = new Blob(recordedBlobs, {type: 'audio/ogg'});
+  var blob = new Blob(recordedBlobs, {type: 'audio/webm'});
   var url = window.URL.createObjectURL(blob);
   var a = document.createElement('a');
   a.style.display = 'none';
   a.href = url;
-  a.download = 'test.ogg';
+  a.download = 'test.webm';
   document.body.appendChild(a);
   a.click();
   setTimeout(function() {
